@@ -168,7 +168,7 @@ Public Class Form3
         Dim _encrypt As New Encryption
         With _encrypt
             '.ProtectApplicationSetting()
-            '.ProtectConnectionString()
+            .ProtectConnectionString()
         End With
 
         Initialization()

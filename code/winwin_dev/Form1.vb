@@ -122,15 +122,45 @@ Public Class Form1
         'k.Start("AVL_DataLoss")
         'k.Start("AVL_Data_Hist_03")
         '===================================================================
-        Dim kk As New AVLEngineClass
-        lstMsgs(kk.GetLength)
-        lstMsgs(kk.GetString)
+        'Dim kk As New AVLEngineClass
+        'lstMsgs(kk.GetLength)
+        'lstMsgs(kk.GetString)
 
-        ParseData(kk.GetString)
+        'ParseData(kk.GetString)
         '===================================================================
+        'Dim engine As New MidnightClass
+        'Dim status As Boolean = engine.doProceed("22:00:08:00:F4:40:00:00:00:1A:36:CB:42:BC:93:4A:40:D5:79:30:39:4E:52:30:39:47:33:30:30:30:31:00:00:00:22:00:08:00:84:40:00:00:00:30:36:CB:42:75:93:4A:40:EA:79:30:39:4E:52:30:39:47:33:30:30:30:31:00:00:00:22:00:08:00:84:40:00:00:00:30:36:CB:42:75:93:4A:40:02:7A:30:39:4E:52:30:39:47:33:30:30:30:31:00:00:00:22:00:08:00:84:40:00:00:00:30:36:CB:42:A3:92:4A:40:16:7A:30:39:4E:52:30:39:47:33:30:30:30:31:00:00:00:22:00:08:00:84:40:00:00:00:46:36:CB:42:D1:91:4A:40:2A:7A:30:39:4E:52:30:39:47:33:30:30:30:31:00:00:00:22:00:08:00:84:40:00:00:00:46:36:CB:42:8A:91:4A:40:42:7A:30:39:4E:52:30:39:47:33:30:30:30:31:00:00:00")
+
+        'lstMsgs(status)
+        '===================================================================
+        'Dim xstr As String = "ASAL"
+        'Dim t As New Test
+        't.Execute(xstr)
+        'lstMsgs(xstr)
+        '===================================================================
+        'POLY
+        'DayAtTheAmusementPark()
+
+        'INHERITS
+        Dim oLine As LineDelim = New LineDelim()
+
+        oLine.Line = "aku budak minang"
+        lstMsgs(oLine.GetWord())
+        lstMsgs(oLine.aGetWord())
     End Sub
 
 #Region "PrivateTest"
+
+    Private Sub DayAtTheAmusementPark()
+        Dim oRollerCoaster As New TheRollerCoaster
+        Dim oMerryGoRound As New TheMerryGoRound
+        Call GoOnRide(oRollerCoaster)
+        Call GoOnRide(oMerryGoRound)
+    End Sub
+    Private Sub GoOnRide(ByVal oRide As Object)
+        oRide.Ride()
+    End Sub
+
     Private Sub Test1()
         Dim nValue As Integer = 1
         If nValue <> vbNull Or nValue <> 0 Then
@@ -770,4 +800,13 @@ Public Class Form1
 
 #End Region
 
+End Class
+
+Public Class Test
+    Public Sub Execute(ByRef str As String)
+        subtest(str)
+    End Sub
+    Private Sub subtest(ByRef x As String)
+        x = "DAMN"
+    End Sub
 End Class

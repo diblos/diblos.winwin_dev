@@ -17,6 +17,7 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
+    <ApplicationIcon>Iconka-Easter-Egg-Bunny-Blue-cute.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -84,6 +85,10 @@
     <Compile Include="class\AVL_Raw_Srv.vb" />
     <Compile Include="class\clsMinToTray.vb" />
     <Compile Include="class\Encryption.vb" />
+    <Compile Include="class\inherit.vb" />
+    <Compile Include="class\MidnightClass.vb" />
+    <Compile Include="class\poly.vb" />
+    <Compile Include="class\poly2.vb" />
     <Compile Include="class\TimerClass.vb" />
     <Compile Include="Form3.Designer.vb">
       <DependentUpon>Form3.vb</DependentUpon>
@@ -149,6 +154,10 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dakirby309-Simply-Styled-Autodesk-Simulation-Composite-Design.ico" />
+    <Content Include="Iconka-Easter-Egg-Bunny-Blue-cute.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

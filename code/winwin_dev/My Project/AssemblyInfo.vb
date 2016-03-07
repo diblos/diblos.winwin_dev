@@ -9,11 +9,11 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("winwin_dev")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyDescription("by Sebastian")> 
 <Assembly: AssemblyCompany("ItraMAS® Technology Sdn Bhd")> 
 <Assembly: AssemblyProduct("winwin_dev")> 
 <Assembly: AssemblyCopyright("Copyright © ItraMAS® Technology Sdn Bhd 2015")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyTrademark("diblos@gmail.com")> 
 
 <Assembly: ComVisible(False)>
 
