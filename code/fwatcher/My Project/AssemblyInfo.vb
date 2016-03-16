@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("winwin_dev")> 
-<Assembly: AssemblyDescription("by Sebastian")> 
-<Assembly: AssemblyCompany("ItraMAS® Technology Sdn Bhd")> 
-<Assembly: AssemblyProduct("winwin_dev")> 
-<Assembly: AssemblyCopyright("Copyright © ItraMAS® Technology Sdn Bhd 2015")> 
-<Assembly: AssemblyTrademark("diblos@gmail.com")> 
+<Assembly: AssemblyTitle("vmmwatcher")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("ItraMAS Sdn Bhd")> 
+<Assembly: AssemblyProduct("vmmwatcher")> 
+<Assembly: AssemblyCopyright("Copyright ©  2011")> 
+<Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("13266b03-3b78-45f9-be83-b68a067bf012")> 
+<Assembly: Guid("4973a34a-c161-452d-b79e-ce2a79d8695b")> 
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.1")> 
-<Assembly: AssemblyFileVersion("1.0.0.1")> 
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> 
