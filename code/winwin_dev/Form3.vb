@@ -8,6 +8,7 @@ Public Class Form3
     Dim dtTableSize As DataTable
 
     Dim DBLOGFILE_FLAG As Boolean = False
+    Dim DBFileInfo As DatabaseFiles
 
     Dim counter As Integer = 0
 
@@ -184,6 +185,7 @@ Public Class Form3
 
         GetTables()
         GetTableSizes()
+        GetDatabaseFileInfo()
 
         UpdateStatus("Ready")
 
@@ -392,6 +394,50 @@ Public Class Form3
         Return result
     End Function
 
+    Private Sub GetDatabaseFileInfo()
+        Dim RPT As Microsoft.Practices.EnterpriseLibrary.Data.Database = _
+        Microsoft.Practices.EnterpriseLibrary.Data.DatabaseFactory.CreateDatabase(SELECTED_CONNECTION)
+
+        Dim sql As New System.Text.StringBuilder
+        Dim ds As DataSet
+        Dim command As System.Data.Common.DbCommand
+
+        Dim strDBName As String = GetCatalogDB(RPT.ConnectionString)
+        Dim file As New DatabaseFiles
+
+        Try
+            sql.AppendLine(" USE @DBNAME ;")
+            sql.AppendLine(" SELECT NAME,SIZE FROM SYS.DATABASE_FILES ")
+
+            sql.Replace("@DBNAME", strDBName)
+            command = RPT.GetSqlStringCommand(sql.ToString)
+
+            command.CommandTimeout = 0
+            ds = RPT.ExecuteDataSet(command)
+            command.Connection.Close()
+            command.Dispose()
+            'USE DS DATA OR ...
+            With file
+                .mdfFile = ds.Tables(0).Rows(0).Item("name")
+                .mdfSize = ds.Tables(0).Rows(0).Item("size")
+                .ldfFile = ds.Tables(0).Rows(1).Item("name")
+                .ldfSize = ds.Tables(0).Rows(1).Item("size")
+            End With
+
+            ds.Dispose()
+        Catch ex As Exception
+            lstMsgs(ex.Message & " for " & strDBName)
+        Finally
+            If Not IsNothing(RPT) Then RPT = Nothing
+        End Try
+        DisableForm(True)
+        GC.Collect()
+
+        DBFileInfo = file
+        lstMsgs("Info: " & file.ToString)
+
+    End Sub
+
     Private Sub ShrinkDBLog()
         DisableForm(False)
         Dim startTime As Date = Now
@@ -415,7 +461,8 @@ Public Class Form3
             sql.AppendLine(" SET RECOVERY FULL ;")
 
             sql.Replace("@DBNAME", strDBName)
-            sql.Replace("@DBLOG", strDBName & "_log")
+            'sql.Replace("@DBLOG", strDBName & "_log")
+            sql.Replace("@DBLOG", DBFileInfo.ldfFile)
             command = RPT.GetSqlStringCommand(sql.ToString)
 
             command.CommandTimeout = 0
@@ -476,6 +523,7 @@ Public Class Form3
         If str <> "" Then
             Dim q As New System.Threading.Thread(AddressOf QueryTableInfo)
             q.Start(str)
+            Debug.Print(q.ManagedThreadId)
         End If
 
     End Sub
@@ -504,4 +552,51 @@ Public Class Form3
         DBLOGFILE_FLAG = True
         ButtonPurge.Enabled = False
     End Sub
+End Class
+
+Public Class DatabaseFiles
+    Dim _mdfFile As String
+    Public Property mdfFile() As String
+        Get
+            Return Me._mdfFile
+        End Get
+        Set(ByVal value As String)
+            Me._mdfFile = value
+        End Set
+    End Property
+
+    Dim _ldfFile As String
+    Public Property ldfFile() As String
+        Get
+            Return Me._ldfFile
+        End Get
+        Set(ByVal value As String)
+            Me._ldfFile = value
+        End Set
+    End Property
+
+    Dim _mdfSize As Long
+    Public Property mdfSize() As Long
+        Get
+            Return Me._mdfSize
+        End Get
+        Set(ByVal value As Long)
+            Me._mdfSize = value
+        End Set
+    End Property
+
+    Dim _ldfSize As Long
+    Public Property ldfSize() As Long
+        Get
+            Return Me._ldfSize
+        End Get
+        Set(ByVal value As Long)
+            Me._ldfSize = value
+        End Set
+    End Property
+
+    Public Overrides Function ToString() As String
+        Return Me.mdfFile & ":" & Me.mdfSize & " KB , " & Me.ldfFile & ":" & Me.ldfSize & " KB"
+    End Function
+
 End Class

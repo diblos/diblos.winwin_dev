@@ -76,12 +76,90 @@
     End Sub
 
     Private Sub Form2_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        nSize = Me.Size
-        Me.MaximumSize = nSize
 
         Me.Text = "Test Datatable"
         DataGridView1.AllowUserToAddRows = False
 
+        Starter()
+
+        nSize = Me.Size
+        Me.MaximumSize = nSize
+    End Sub
+
+    Sub Starter()
+
+        Me.Size = New Size(500, 500)
+
+        Dim VDP_StartTime As String = "03:10:09"
+        Dim BusAVL_StartTime As String = "03:03:02"
+        Dim BusAVLGIS_StartTime As String = "03:03:02"
+
+        Dim VDP_Interval As Integer = 30
+        Dim BusAVL_Interval As Integer = 20
+        Dim BusAVLGIS_Interval As Integer = 20
+
+        Dim nCol As DataColumn
+        Dim tempData As New DataTable
+
+        nCol = New DataColumn()
+        nCol.DataType = System.Type.GetType("System.Int32")
+        nCol.ColumnName = "No"
+        nCol.ReadOnly = False
+        nCol.Unique = False
+        tempData.Columns.Add(nCol)
+
+        nCol = New DataColumn()
+        nCol.DataType = System.Type.GetType("System.DateTime")
+        nCol.ColumnName = "VDP"
+        nCol.ReadOnly = False
+        nCol.Unique = False
+        tempData.Columns.Add(nCol)
+
+        nCol = New DataColumn()
+        nCol.DataType = System.Type.GetType("System.DateTime")
+        nCol.ColumnName = "BusAVL"
+        nCol.ReadOnly = False
+        nCol.Unique = False
+        tempData.Columns.Add(nCol)
+
+        nCol = New DataColumn()
+        nCol.DataType = System.Type.GetType("System.DateTime")
+        nCol.ColumnName = "BusAVLGIS"
+        nCol.ReadOnly = False
+        nCol.Unique = False
+        tempData.Columns.Add(nCol)
+
+        For i = 0 To 100
+            Dim _row As DataRow
+            _row = tempData.NewRow
+            _row("No") = i + 1
+            _row("VDP") = DateAdd(DateInterval.Second, VDP_Interval * i, CDate(Now.ToString("yyyy-MM-dd ") & VDP_StartTime))
+            _row("BusAVL") = DateAdd(DateInterval.Second, BusAVL_Interval * i, CDate(Now.ToString("yyyy-MM-dd ") & BusAVL_StartTime))
+            _row("BusAVLGIS") = DateAdd(DateInterval.Second, BusAVLGIS_Interval * i, CDate(Now.ToString("yyyy-MM-dd ") & BusAVLGIS_StartTime))
+            tempData.Rows.Add(_row)
+        Next
+
+        AddHandler DataGridView1.DataBindingComplete, AddressOf reformatCell
+
+        ShowData(tempData)
+
+
+
+    End Sub
+
+    Sub reformatCell()
+        Dim count As Integer = 0
+        Dim DataFormatString = "dd/MM/yyyy hh:mm:ss"
+        Dim nDataGridViewCellStyle As New DataGridViewCellStyle
+        nDataGridViewCellStyle.Format = DataFormatString
+        For Each col In DataGridView1.Columns
+            If count <> 0 Then col.DefaultCellStyle = nDataGridViewCellStyle
+            count = +1
+        Next
+
+    End Sub
+
+    Sub Starter_Insert_Filter()
         'Dim _thread As New System.Threading.Thread(AddressOf Test1)
         '_thread.Start()
 
@@ -91,7 +169,6 @@
         _timer = New System.Timers.Timer()
         AddHandler _timer.Elapsed, AddressOf Test1
         _timer.Start()
-
     End Sub
 
     Private Sub Test1(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
